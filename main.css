@@ -1,0 +1,31 @@
+.container{
+  background-color: red;
+}
+
+.character {
+  height: 600px;
+  width: 100%;
+  margin: auto;
+  background-repeat: no-repeat;
+  background-position:bottom;
+  background-size:cover;
+}
+
+.gumshoe {
+  background-image: url(assets/sprites/isaac/gumshoe-normal-a.gif);
+
+}
+
+.gumshoetalk {
+  background-image: url(assets/sprites/isaac/gumshoe-normal-b.gif);
+  margin: auto;
+
+}
+
+.well {
+  height: 600px;
+  width: 50%;
+  background-image: url(assets/backgrounds/courtroomHall.png);
+  background-size:cover;
+  margin: auto;
+}
