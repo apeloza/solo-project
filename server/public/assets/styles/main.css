@@ -3,27 +3,17 @@
   src: local('Ace Attorney'),url('../fonts/Ace-Attorney.ttf') format('truetype');
 }
 
+.portrait {
+  height: 400px;
+  width: 100%;
+}
 .container{
   background-color: black;
 }
 
-.character {
-  height: 500px;
-  width: 100%;
-  margin: auto;
-  background-repeat: no-repeat;
-  background-position:bottom;
-  background-size:cover;
-}
 
 .gumshoe {
   background-image: url(../sprites/isaac/gumshoe-normal-a.gif);
-
-}
-
-.gumshoetalk {
-  background-image: url(../sprites/isaac/gumshoe-normal-b.gif);
-  margin: auto;
 
 }
 
