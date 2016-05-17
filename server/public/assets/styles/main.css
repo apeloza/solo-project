@@ -11,12 +11,6 @@
   background-color: black;
 }
 
-
-.gumshoe {
-  background-image: url(../sprites/isaac/gumshoe-normal-a.gif);
-
-}
-
 .evidence {
 float: left;
 width: 20%;

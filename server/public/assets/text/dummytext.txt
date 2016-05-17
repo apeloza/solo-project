@@ -1,3 +1,4 @@
 isaac/isaac_talking:: Here is my introduction
 isaac/isaac_proud_talking:: I am a big doofus
-isaac/isaac_sad_talking:: Text is happening.
+isaac/isaac_sad_talking:: Text is happening
+isaac/isaac_talking:: I added a line!
