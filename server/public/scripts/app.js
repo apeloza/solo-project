@@ -30,16 +30,19 @@ function parseText(text){
 }
 
 function advanceText(){
+
   if (linebyLine.length <= textIndex + 1 ){
     return true;
   } else {
     $('.textbox').empty();
-    speechDelay = setInterval (typeText, 60);
+    $('.textbox').off('click', advanceText);
+    speechDelay = setInterval (typeText, 50);
 $('.portrait').attr('src', '../assets/sprites/' + parsedText[textIndex][0] + '.gif');
 }
 }
 
 function typeText(){
+
   console.log(parsedText[textIndex][1]);
   $('.textbox').append(parsedText[textIndex][1][substringIndex]);
   substringIndex++;
@@ -50,6 +53,10 @@ function typeText(){
     console.log("True");
     clearInterval(speechDelay);
     substringIndex = 0;
+    $('.portrait').attr('src', '../assets/sprites/' + parsedText[textIndex][2] + '.gif');
+    $('.textbox').append('<img class="pointer" src="../assets/interfaceimages/pointer.gif" />');
     textIndex++;
+    $('.textbox').on('click', advanceText);
+
   }
 }

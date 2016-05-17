@@ -1,4 +1,5 @@
-isaac/isaac_talking:: Here is my introduction
-isaac/isaac_proud_talking:: I am a big doofus
-isaac/isaac_sad_talking:: Text is happening
-isaac/isaac_talking:: I added a line!
+isaac/isaac_talking:: Here is my introduction ::isaac/isaac_neutral
+isaac/isaac_proud_talking:: I am a big doofus ::isaac/isaac_proud
+isaac/isaac_sad_talking:: Text is happening ::isaac/isaac_sad
+isaac/isaac_talking:: I added a line! ::isaac/isaac_neutral
+ruby/ruby_neutral_talking:: A new character. ::ruby/ruby_neutral
