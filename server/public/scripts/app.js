@@ -46,6 +46,7 @@ function advanceText(){
     $('.textbox').off('click', advanceText);
     blip = new Audio ('../assets/audio/sfx/sfx-' + parsedText[textIndex][3] + '.wav');
     $('.textbox').addClass(parsedText[textIndex][4]);
+    $('.namebox').text(parsedText[textIndex][5]);
     speechDelay = setInterval (typeText, 50);
 $('.portrait').attr('src', '../assets/sprites/' + parsedText[textIndex][0] + '.gif');
 }
