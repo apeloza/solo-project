@@ -1,5 +1,7 @@
-isaac/isaac_talking:: Here is my introduction ::isaac/isaac_neutral
-isaac/isaac_proud_talking:: I am a big doofus ::isaac/isaac_proud
-isaac/isaac_sad_talking:: Text is happening ::isaac/isaac_sad
-isaac/isaac_talking:: I added a line! ::isaac/isaac_neutral
-ruby0/ruby_neutral_talking:: A new character. ::ruby0/ruby_neutral
+This is placeholder text. The format for lines below is as follows: active gif::text to appear::resting gif::sound for text::class for text
+isaac/isaac_neutral::District Court House 7:00pm ::isaac/isaac_neutral::typewriter::location
+isaac/isaac_talking:: Here is my introduction. This is a really long line that should wrap around the textbox limitations. ::isaac/isaac_neutral::blipmale::speech
+isaac/isaac_proud_talking:: I am a big doofus ::isaac/isaac_proud::blipmale::speech
+isaac/isaac_sad_talking:: (This is a thought!) ::isaac/isaac_sad::blipmale::thought
+isaac/isaac_talking:: I added a line! ::isaac/isaac_neutral::blipmale::speech
+ruby0/ruby_neutral_talking:: A new character.::ruby0/ruby_neutral::blipfemale::speech
