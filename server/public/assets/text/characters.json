@@ -8,9 +8,9 @@
         "talking": "ruby/ruby_neutral_talking",
         "finished": "ruby/ruby_neutral"
       },
-      "angry": {
-        "talking": "ruby/ruby_angry_talking",
-        "finished": "ruby/ruby_angry"
+      "sweating": {
+        "talking": "ruby/ruby_sweating_talking",
+        "finished": "ruby/ruby_sweating"
       }
     }
   },

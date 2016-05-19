@@ -8,16 +8,31 @@ var sceneList;
 var Character = function(params) {
   this.name = params.name;
   this.emotions = params.emotions;
+  this.emotion = 'default';
   this.sound = params.defaultSound;
   this.text = params.defaultText;
 };
 Character.prototype.speak = function(message, emotion, speechtype){
+  this.emotion = emotion || 'default';
   var $textbox = $('.textbox');
       $textbox.empty();
       $textbox.attr('class', 'textbox ' + (speechtype || this.text));
       blip = new Audio ('../assets/audio/sfx/sfx-' + this.sound + '.wav');
-      showText(message, 0, 50, blip);
+      console.log(this.emotions);
+      displaySprite(this.emotions[this.emotion].talking);
+      this.showText(message, 0, 50, blip);
 };
+Character.prototype.showText = function (message, index, interval, sound) {
+  if (index < message.length) {
+    $('.textbox').append(message[index++]);
+    sound.play();
+    var self = this;
+    setTimeout(function () { self.showText(message, index, interval, sound); }, interval);
+  } else {
+
+    displaySprite(this.emotions[this.emotion].finished);
+  }
+}
 
 $(document).ready(function () {
 
@@ -51,14 +66,16 @@ sceneList = linedata;
 checkLoad();
   });
 }
+function displaySprite(path){
+$('.portrait').attr('src', '../assets/sprites/' + path + '.gif');
 
+}
 function checkLoad(){
   if (characterList && sceneList){
     console.log("Yep");
     var currScene = sceneList.opening;
     var currChar =  new Character(characterList[currScene.character]);
-  //  $('.portrait').attr('src', '../assets/sprites/' + currChar.emotions.default.talking + '.gif');
-  currChar.speak('Hello world');
+  currChar.speak('Hello world', 'sweating');
 
   }
 }
@@ -93,10 +110,10 @@ function typeText(){
   }
 }
 
-function showText (message, index, interval, sound) {
+/*function showText (message, index, interval, sound) {
   if (index < message.length) {
     $('.textbox').append(message[index++]);
     sound.play();
     setTimeout(function () { showText(message, index, interval, sound); }, interval);
   }
-}
+}*/
