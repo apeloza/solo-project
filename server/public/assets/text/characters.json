@@ -1,0 +1,28 @@
+{
+  "ruby": {
+    "name": "Ruby",
+    "defaultSound": "blipfemale",
+    "defaultText": "speech",
+    "emotions": {
+      "default": {
+        "talking": "ruby/ruby_neutral_talking",
+        "finished": "ruby/ruby_neutral"
+      },
+      "angry": {
+        "talking": "ruby/ruby_angry_talking",
+        "finished": "ruby/ruby_angry"
+      }
+    }
+  },
+  "isaac": {
+    "name": "Isaac",
+    "defaultSound": "blipmale",
+    "defaultText": "speech",
+    "emotions": {
+      "default": {
+        "talking":"isaac/isaac_neutral_talking",
+        "finished": "isaac/isaac_neutral"
+      }
+      }
+    }
+  }

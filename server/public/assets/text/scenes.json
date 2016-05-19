@@ -1,0 +1,18 @@
+{
+  "opening":{
+    "character": "ruby",
+    "lines": [
+      "This is the first line. It doesn't have anything special.",
+      "This is the second line. It also doesn't have anything special.",
+      {
+        "line": "This is the third line. Ruby is angry!",
+        "emotion": "angry"
+      },
+      {
+        "line": "This is the fourth line. Ruby is thinking.",
+        "text": "thought"
+      },
+      "This is the fifth line. There is nothing special."
+    ]
+  }
+}
