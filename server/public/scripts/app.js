@@ -5,6 +5,19 @@ var speechDelay;
 var substringIndex = 0;
 var characterList;
 var sceneList;
+var Character = function(params) {
+  this.name = params.name;
+  this.emotions = params.emotions;
+  this.sound = params.defaultSound;
+  this.text = params.defaultText;
+};
+Character.prototype.speak = function(message, emotion, speechtype){
+  var $textbox = $('.textbox');
+      $textbox.empty();
+      $textbox.attr('class', 'textbox ' + (speechtype || this.text));
+      blip = new Audio ('../assets/audio/sfx/sfx-' + this.sound + '.wav');
+      showText(message, 0, 50, blip);
+};
 
 $(document).ready(function () {
 
@@ -43,32 +56,25 @@ function checkLoad(){
   if (characterList && sceneList){
     console.log("Yep");
     var currScene = sceneList.opening;
-    var currChar =  characterList[currScene.character];
-    $('.portrait').attr('src', '../assets/sprites/' + currChar.emotions.default.talking + '.gif');
+    var currChar =  new Character(characterList[currScene.character]);
+  //  $('.portrait').attr('src', '../assets/sprites/' + currChar.emotions.default.talking + '.gif');
+  currChar.speak('Hello world');
 
   }
 }
-/*function parseText(text){
+function parseText(text){
 
   for (var i = 0; i < text.length; i++){
     parsedText.push(text[i].split('::'));
   }
 }
 
-function advanceText(){
-
-  if (linebyLine.length <= textIndex + 1 ){
-    return true;
-  } else {
-    $('.textbox').empty();
-    $('.textbox').removeClass(parsedText[textIndex - 1][4]);
-    $('.textbox').off('click', advanceText);
-    blip = new Audio ('../assets/audio/sfx/sfx-' + parsedText[textIndex][3] + '.wav');
-    $('.textbox').addClass(parsedText[textIndex][4]);
-    $('.namebox').text(parsedText[textIndex][5]);
-    speechDelay = setInterval (typeText, 50);
-$('.portrait').attr('src', '../assets/sprites/' + parsedText[textIndex][0] + '.gif');
-}
+function advanceText(message, options){
+var $textbox = $('.textbox');
+    $textbox.empty();
+    $textbox.attr('class', 'textbox ' + options.textType);
+    blip = new Audio ('../assets/audio/sfx/sfx-' + options.textSound + '.wav');
+    showText(message, 0, 50, blip);
 }
 
 function typeText(){
@@ -80,10 +86,17 @@ function typeText(){
 
     clearInterval(speechDelay);
     substringIndex = 0;
-    $('.portrait').attr('src', '../assets/sprites/' + parsedText[textIndex][2] + '.gif');
     $('.textbox').append('<img class="pointer" src="../assets/interfaceimages/pointer.gif" />');
     textIndex++;
     $('.textbox').on('click', advanceText);
 
   }
-}*/
+}
+
+function showText (message, index, interval, sound) {
+  if (index < message.length) {
+    $('.textbox').append(message[index++]);
+    sound.play();
+    setTimeout(function () { showText(message, index, interval, sound); }, interval);
+  }
+}
