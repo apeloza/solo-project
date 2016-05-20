@@ -1,18 +1,24 @@
 {
   "opening":{
+    "background": "judgestand",
     "character": "ruby",
     "lines": [
       "This is the first line. It doesn't have anything special.",
       "This is the second line. It also doesn't have anything special.",
       {
-        "line": "This is the third line. Ruby is angry!",
-        "emotion": "angry"
+        "line": "This is the third line. Ruby is nervous!",
+        "emotion": "sweating",
+        "character": "ruby",
+        "background": "prosecutorempty"
       },
       {
-        "line": "This is the fourth line. Ruby is thinking.",
-        "text": "thought"
+        "line": "This is the fourth line. Isaac is thinking.",
+        "text": "thought",
+        "character": "isaac",
+        "background": "courtroomoverview"
       },
       "This is the fifth line. There is nothing special."
     ]
+
   }
 }

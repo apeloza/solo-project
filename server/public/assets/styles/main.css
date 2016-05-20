@@ -4,7 +4,7 @@
 }
 
 .portrait {
-  height: 400px;
+  height: 450px;
   width: 100%;
 }
 .container{
@@ -51,10 +51,10 @@ background-color: brown;
 }
 
 .gamecontainer{
-  height: 600px;
-  width: 50%;
+  height: 700px;
+  width: 65%;
   background-image: url(../backgrounds/courtroomHall.png);
-  background-size:cover;
+  background-size:contain;
   margin: auto;
   position: relative;
 }
@@ -64,13 +64,13 @@ background-color: brown;
 background-color:darkblue;
 text-align: center;
 color: white;
-width:100px;
-height:30px;
+width:200px;
+height:40px;
 display: block;
 border: 2px solid white;
 position: absolute;
-top:380px;
+top:480px;
 z-index: 10;
 border-radius: 10%;
-font-size:20px;
+font-size:24px;
 }
