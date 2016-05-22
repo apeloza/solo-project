@@ -80,9 +80,9 @@ fetchChar('isaac');
 fetchScene('opening');
 
 //The starting music is initialized. It is set to loop, and then it plays.
-//var courtroomLobby = new Audio('../assets/audio/bgm/courtroomlobby.mp3');
-//courtroomLobby.loop = true;
-//courtroomLobby.play();
+var courtroomLobby = new Audio('../assets/audio/bgm/courtroomlobby.mp3');
+courtroomLobby.loop = true;
+courtroomLobby.play();
 
 });
 
