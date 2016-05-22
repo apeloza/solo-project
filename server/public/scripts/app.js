@@ -1,6 +1,6 @@
 
 //Many variables are initialized here to be manipulated globally.
-
+var isTalking = false;
 var speechDelay;
 var substringIndex = 0;
 var characterList;
@@ -31,6 +31,8 @@ var Scene = function(params) {
 
 //This function outputs text onto the DOM and handles gifs/sound effects.
 Character.prototype.speak = function(message, emotion, speechtype){
+  if (isTalking === false){
+    isTalking = true;
   this.emotion = emotion || 'default';
   var $textbox = $('.textbox');
       $textbox.empty();
@@ -40,11 +42,13 @@ Character.prototype.speak = function(message, emotion, speechtype){
       console.log(this.emotions);
       displaySprite(this.emotions[this.emotion].talking);
       this.showText(message, 0, 50, blip);
+    }
 };
 
 //This function is in charge of appending to the DOM one letter at a time.
 Character.prototype.showText = function (message, index, interval, sound) {
   if (index < message.length) {
+
     $('.textbox').append(message[index++]);
     sound.play();
     var self = this;
@@ -52,6 +56,7 @@ Character.prototype.showText = function (message, index, interval, sound) {
   } else {
     currScene.lineIndex ++;
     displaySprite(this.emotions[this.emotion].finished);
+    isTalking = false;
   }
 };
 Scene.prototype.advanceText = function(){
