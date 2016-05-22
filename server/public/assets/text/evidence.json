@@ -1,0 +1,14 @@
+{
+  "badge":{
+    "name":"Attorney's Badge",
+    "description":"My attorney's badge. Proof that I can practice law.",
+    "image":"../assets/evidence/lawyerbadge.gif",
+    "info":"Looking great. I shined it this morning."
+  },
+  "autopsyreport":{
+    "name":"Autopsy Report",
+    "description":"Details about the victim, Bracket.",
+    "image":"../assets/evidence/autopsyreport.png",
+    "info":"The victim died at precisely 2:00am Monday morning. The cause of death is unclear. There are no signs of blunt force trauma."
+  }
+}

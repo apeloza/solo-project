@@ -1,7 +1,0 @@
-This is placeholder text. The format for lines below is as follows: active gif::text to appear::resting gif::sound for text::class for text::name of character
-isaac/isaac_neutral::District Court House 7:00pm ::isaac/isaac_neutral::typewriter::location::
-isaac/isaac_talking:: Here is my introduction. This is a really long line that should wrap around the textbox limitations. ::isaac/isaac_neutral::blipmale::speech::Isaac
-isaac/isaac_proud_talking:: I am a big doofus ::isaac/isaac_proud::blipmale::speech::Isaac
-isaac/isaac_sad_talking:: (This is a thought!) ::isaac/isaac_sad::blipmale::thought::Isaac
-isaac/isaac_talking:: I added a line! ::isaac/isaac_neutral::blipmale::speech::Isaac
-ruby/ruby_neutral_talking:: A new character.::ruby/ruby_neutral::blipfemale::speech::Ruby
