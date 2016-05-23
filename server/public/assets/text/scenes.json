@@ -1,24 +1,49 @@
 {
-  "opening":{
-    "background": "judgestand",
-    "character": "ruby",
-    "lines": [
-      "This is the first line. It doesn't have anything special.",
-      "This is the second line. It also doesn't have anything special.",
-      {
-        "line": "This is the third line. Ruby is nervous!",
-        "emotion": "sweating",
+    "opening": {
+        "background": "courtroomHall",
         "character": "ruby",
-        "background": "prosecutorempty"
-      },
-      {
-        "line": "This is the fourth line. Isaac is thinking.",
-        "text": "thought",
-        "character": "isaac",
-        "background": "courtroomoverview"
-      },
-      "This is the fifth line. There is nothing special."
-    ]
+        "music": "courtroomlobby",
+        "lines": [
+            "This is the first line. It doesn't have anything special.",
+            "This is the second line. It also doesn't have anything special.", {
+                "line": "This is the third line. Ruby is nervous and grabbing her hat!",
+                "emotion": "sweating",
+                "character": "ruby",
+                "background": "prosecutorempty"
+            }, {
+                "line": "This is the fourth line. Isaac is thinking.",
+                "text": "thought",
+                "character": "isaac",
+                "background": "courtroomoverview"
+            },
+            "This is the fifth line. There is nothing special."
+        ]
 
-  }
+    },
+    "courtroom": {
+        "background": "defenseempty",
+        "character": "dawn",
+        "music": "trial",
+        "lines": [{
+                "line": "This is the first line. We are in a new scene.",
+                "background": "defenseempty",
+                "character": "dawn",
+                "music": "trial"
+            },
+            "This is the second line. It had better not show up first.", {
+                "line": "This is the third line. Dawn is confident!",
+                "emotion": "confident"
+            }, {
+                "line": "This is the fourth line. Isaac is thinking.",
+                "text": "thought",
+                "character": "isaac",
+                "background": "courtroomoverview"
+            },
+            {
+            "line":"This is the fifth line. We are back at the defense.",
+            "character":"dawn"
+          }
+        ]
+
+    }
 }

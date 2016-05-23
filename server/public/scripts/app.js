@@ -10,6 +10,7 @@ var currScene;
 var ruby;
 var isaac;
 var opening;
+var court;
 
 //This is the character prototype.
 var Character = function(params) {
@@ -38,6 +39,9 @@ var Evidence = function(params) {
 
 //This function outputs text onto the DOM and handles gifs/sound effects.
 Character.prototype.speak = function(message, emotion, speechtype) {
+  if (currScene.lines.length <= currScene.lineIndex) {
+      currScene.nextScene();
+  }
     if (isTalking === false) {
         isTalking = true;
         this.emotion = emotion || 'default';
@@ -46,11 +50,11 @@ Character.prototype.speak = function(message, emotion, speechtype) {
         $textbox.attr('class', 'textbox ' + (speechtype || this.text));
         $('.namebox').text(this.name);
         blip = new Audio('../assets/audio/sfx/sfx-' + this.sound + '.wav');
-        console.log(this.emotions);
         displaySprite(this.emotions[this.emotion].talking);
-        this.showText(message, 0, 50, blip);
+        
+        this.showText(message, 0, 20, blip);
     }
-};
+  };
 
 //This function is in charge of appending to the DOM one letter at a time.
 Character.prototype.showText = function(message, index, interval, sound) {
@@ -63,29 +67,40 @@ Character.prototype.showText = function(message, index, interval, sound) {
             self.showText(message, index, interval, sound);
         }, interval);
     } else {
+      $('.textbox').append('<img class="pointer" src="../assets/interfaceimages/pointer.gif" />');
         currScene.lineIndex++;
         displaySprite(this.emotions[this.emotion].finished);
         isTalking = false;
     }
 };
 Scene.prototype.advanceText = function() {
+  if (currScene.lines.length <= currScene.lineIndex) {
+      currScene.nextScene();
+  }
+  console.log(currScene.character);
     var line = currScene.lines[currScene.lineIndex];
-    var emotion = currScene.lines[currScene.lineIndex].emotion;
-    var texttype = currScene.lines[currScene.lineIndex].text;
-    console.log(characterList[currScene.lines[currScene.lineIndex].character]);
-    currChar = (characterList[currScene.lines[currScene.lineIndex].character]) || currChar;
-    console.log(currChar);
+    var emotion = line.emotion;
+    var texttype = line.text;
+    currChar = (characterList[line.character]) || currChar;
     currChar.speak(line.line || currScene.lines[currScene.lineIndex], emotion, texttype);
     currScene.changeBG(line.background || currScene.background);
-    if (currScene.lines.length <= currScene.lineIndex + 1) {
-        //this.nextScene();
-    }
 };
 Scene.prototype.changeBG = function(bg) {
     $('.gamecontainer').css({
         'backgroundImage': 'url(../assets/backgrounds/' + bg + '.png'
     });
+if(bg == "defenseempty"){
+$('.defensebench').removeClass('hidden');
+console.log("Fired");
+} else {
+$('.defensebench').addClass('hidden');
+}
+};
 
+Scene.prototype.nextScene = function(){
+currScene = sceneList[1];
+currScene.lineIndex = 0;
+console.log(currScene);
 };
 
 $(document).ready(function() {
@@ -96,9 +111,9 @@ $(document).ready(function() {
     fetchEvidence();
 
     //The starting music is initialized. It is set to loop, and then it plays.
-    var courtroomLobby = new Audio('../assets/audio/bgm/courtroomlobby.mp3');
-    courtroomLobby.loop = true;
-    courtroomLobby.play();
+    var music = new Audio('../assets/audio/bgm/courtroomlobby.mp3');
+    music.loop = true;
+    music.play();
 
 });
 
@@ -113,9 +128,11 @@ function fetchChar() {
             //New characters are made for each character in the json file. They are then put into a container object.
             ruby = new Character(characterList.ruby);
             isaac = new Character(characterList.isaac);
+            dawn = new Character(characterList.dawn);
             characterList = {
                 ruby: ruby,
-                isaac: isaac
+                isaac: isaac,
+                dawn: dawn
             };
             checkLoad();
         }
@@ -127,16 +144,16 @@ function fetchScene() {
     $.get('/jsonserver/scene/', function(linedata) {
         sceneList = linedata;
         opening = new Scene(sceneList.opening);
-        sceneList = {
-            opening: opening
-        };
+        courtroom = new Scene(sceneList.courtroom);
+        sceneList = [
+             opening, courtroom
+        ];
         checkLoad();
     });
 }
 
 function fetchEvidence() {
     $.get('/jsonserver/evidence/', function(evidence) {
-        console.log(evidence);
         badge = new Evidence(evidence.badge);
         autopsyreport = new Evidence(evidence.autopsyreport);
         evidenceList = {
@@ -179,9 +196,8 @@ function showInfo() {
 //This function ensures all our JSON files are ready before the game begins.
 function checkLoad() {
     if (characterList && sceneList && evidenceList) {
-        console.log("Yep");
 
-        currScene = (sceneList.opening);
+        currScene = (sceneList[0]);
         currChar = (characterList[currScene.character]);
 
         $('.textbox').on('click', currScene.advanceText);

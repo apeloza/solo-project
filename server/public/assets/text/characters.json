@@ -15,7 +15,7 @@
     }
   },
   "isaac": {
-    "name": "Isaac",
+    "name": "Linter",
     "defaultSound": "blipmale",
     "defaultText": "speech",
     "emotions": {
@@ -23,6 +23,21 @@
         "talking":"isaac/isaac_neutral_talking",
         "finished": "isaac/isaac_neutral"
       }
+      }
+    },
+    "dawn": {
+      "name": "Perl",
+      "defaultSound": "blipfemale",
+      "defaultText": "speech",
+      "emotions": {
+        "default": {
+          "talking":"dawn/dawn_neutral_speaking",
+          "finished":"dawn/dawn_neutral"
+        },
+        "confident": {
+          "talking":"dawn/dawn_confident_speaking",
+          "finished":"dawn/dawn_confident"
+        }
       }
     }
   }
