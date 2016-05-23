@@ -11,6 +11,7 @@ var ruby;
 var isaac;
 var opening;
 var court;
+var sceneIndex = 0;
 
 //This is the character prototype.
 var Character = function(params) {
@@ -51,7 +52,7 @@ Character.prototype.speak = function(message, emotion, speechtype) {
         $('.namebox').text(this.name);
         blip = new Audio('../assets/audio/sfx/sfx-' + this.sound + '.wav');
         displaySprite(this.emotions[this.emotion].talking);
-        
+
         this.showText(message, 0, 20, blip);
     }
   };
@@ -91,15 +92,24 @@ Scene.prototype.changeBG = function(bg) {
     });
 if(bg == "defenseempty"){
 $('.defensebench').removeClass('hidden');
-console.log("Fired");
 } else {
 $('.defensebench').addClass('hidden');
+}
+if(bg == "prosecutorempty"){
+  $('.prosecutionbench').removeClass('hidden');
+} else {
+  $('.prosecutionbench').addClass('hidden');
+}
+if(bg == "witnessempty"){
+$('.witness_stand').removeClass('hidden');
+} else {
+  $('.witness_stand').addClass('hidden');
 }
 };
 
 Scene.prototype.nextScene = function(){
-currScene = sceneList[1];
-currScene.lineIndex = 0;
+  sceneIndex++;
+currScene = sceneList[sceneIndex];
 console.log(currScene);
 };
 

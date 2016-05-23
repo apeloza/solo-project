@@ -62,13 +62,23 @@ background-color: brown;
   margin: auto;
   position: relative;
 }
-.defensebench {
+.defensebench, .prosecutionbench, .witness_stand {
   position: absolute;
     top: 440px;
     z-index: 8;
     width: 500px;
-    left: 0px;
     z-index: 1;
+}
+
+.witness_stand{
+    left: 120px;
+}
+.defensebench {
+  left: 0px;
+}
+
+.prosecutionbench {
+  right: 0px;
 }
 
 .namebox{
