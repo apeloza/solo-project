@@ -56,7 +56,7 @@ background-color: brown;
 .gamecontainer{
   height: 700px;
   width: 65%;
-  background-image: url(../backgrounds/courtroomHall.png);
+  background-image: url(../backgrounds/startbg.png);
   background-repeat: no-repeat;
   background-size:contain;
   margin: auto;
