@@ -2,9 +2,11 @@
     "opening": {
         "background": "courtroomHall",
         "character": "ruby",
-        "music": "courtroomlobby",
-        "lines": [
-            "This is the first line. It doesn't have anything special.",
+        "defaultText": "speech",
+        "lines": [{
+                "line": "This is the first line. It doesn't have anything special.",
+                "music": "courtroomlobby"
+            },
             "This is the second line. It also doesn't have anything special.", {
                 "line": "This is the third line. Ruby is nervous and grabbing her hat!",
                 "emotion": "sweating",
@@ -21,9 +23,6 @@
 
     },
     "courtroom": {
-        "background": "defenseempty",
-        "character": "dawn",
-        "music": "trial",
         "lines": [{
                 "line": "This is the first line. We are in a new scene.",
                 "background": "defenseempty",
@@ -38,12 +37,39 @@
                 "text": "thought",
                 "character": "isaac",
                 "background": "courtroomoverview"
-            },
-            {
-            "line":"This is the fifth line. We are back at the defense.",
-            "character":"dawn"
-          }
+            }, {
+                "line": "This is the fifth line. We are back at the defense.",
+                "character": "dawn",
+                "background": "defenseempty"
+            }
         ]
 
+    },
+    "testimonyone": {
+        "defaultText": "testimony",
+        "type": "testimony",
+        "music": "xmoderate",
+        "lines": [{
+            "line": "This is the first line of my testimony.",
+            "background": "witnessempty",
+            "character": "isaac",
+            "music": "xmoderate",
+            "presstext": {
+                "lines": [{
+
+                    "line": "You've done it now pal!",
+                    "emotion": "mad"
+                }, {
+                    "line": "Now we're in some good old presstext!",
+                    "character": "dawn",
+                    "emotion": "confident",
+                    "background": "defenseempty"
+
+                }]
+            }
+        }, {
+            "line": "This is the second line. I am angry!",
+            "emotion": "mad"
+        }]
     }
 }

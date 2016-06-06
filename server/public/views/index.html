@@ -10,11 +10,11 @@
   </head>
   <body>
     <div class="container">
-      <button class="evidencebtn">Evidence</button>
+      <button class="evidencebtn" id="openev">Evidence</button>
       <div class="well well-lg gamecontainer">
         <div class="evidencebox hidden">
-<button class="check">Check</button>
-<button class="present">Present</button>
+<button class="evidencebtn" id ="check">Check</button>
+<button class="evidencebtn hidden" id = "present">Present</button>
 <button class="close">Close Evidence</button>
 <img class="evidence" id ="badge" src="../assets/evidence/lawyerbadge.png" />
 <img class="evidence" id="autopsyreport" src="../assets/evidence/autopsyreport.png" />
@@ -22,15 +22,19 @@
         <div class="namebox">
 
         </div>
+        <button id="press" class="press evidencebtn">Press</button>
         <div class="textbox">
 <p class="location"></p>
 <img class="pointer" src="../assets/interfaceimages/pointer.gif" />
         </div>
 
-<img class="portrait" src="../assets/sprites/pwlogo.png" />
+<img class="portrait" src="../assets/sprites/AceAttorney-Logo.png" />
+<img class="overlay hidden" src="placeholder" />
 <img class="defensebench hidden" src="../assets/sprites/benches/defensebench.gif" />
 <img class="prosecutionbench hidden" src="../assets/sprites/benches/prosecutionbench.gif" />
 <img class="witness_stand hidden" src="../assets/sprites/benches/witnessstand.gif" />
+<audio id ="gamemusic" loop>
+</audio>
       </div>
     </div>
   </body>

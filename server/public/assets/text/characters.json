@@ -1,5 +1,5 @@
 {
-  "ruby": {
+  "witnessOne": {
     "name": "Ruby",
     "defaultSound": "blipfemale",
     "defaultText": "speech",
@@ -14,7 +14,7 @@
       }
     }
   },
-  "isaac": {
+  "detective": {
     "name": "Linter",
     "defaultSound": "blipmale",
     "defaultText": "speech",
@@ -22,10 +22,14 @@
       "default": {
         "talking":"isaac/isaac_neutral_talking",
         "finished": "isaac/isaac_neutral"
+      },
+      "mad": {
+        "talking":"isaac/isaac_mad_talking",
+        "finished": "isaac/isaac_mad"
       }
       }
     },
-    "dawn": {
+    "defense": {
       "name": "Perl",
       "defaultSound": "blipfemale",
       "defaultText": "speech",

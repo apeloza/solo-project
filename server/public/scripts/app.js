@@ -12,6 +12,9 @@ var isaac;
 var opening;
 var court;
 var sceneIndex = 0;
+var testimonyone;
+var lineIndex = -1;
+
 
 //This is the character prototype.
 var Character = function(params) {
@@ -22,13 +25,17 @@ var Character = function(params) {
     this.text = params.defaultText;
 };
 
+//This is the scene prototype.
 var Scene = function(params) {
     this.lines = params.lines;
     this.background = params.background;
     this.character = params.character;
-    this.lineIndex = 0;
+    this.lineIndex = -1;
+    this.defaultText = params.defaultText;
+    this.defaultMusic = params.defaultMusic;
 };
 
+//This is the evidence prototype.
 var Evidence = function(params) {
     this.name = params.name;
     this.description = params.description;
@@ -39,16 +46,15 @@ var Evidence = function(params) {
 
 
 //This function outputs text onto the DOM and handles gifs/sound effects.
-Character.prototype.speak = function(message, emotion, speechtype) {
-  if (currScene.lines.length <= currScene.lineIndex) {
-      currScene.nextScene();
-  }
+Character.prototype.speak = function(message, emotion, speechType) {
+
     if (isTalking === false) {
         isTalking = true;
         this.emotion = emotion || 'default';
+
         var $textbox = $('.textbox');
         $textbox.empty();
-        $textbox.attr('class', 'textbox ' + (speechtype || this.text));
+        $textbox.attr('class', 'textbox ' + (speechType || this.defaultText));
         $('.namebox').text(this.name);
         blip = new Audio('../assets/audio/sfx/sfx-' + this.sound + '.wav');
         displaySprite(this.emotions[this.emotion].talking);
@@ -69,48 +75,92 @@ Character.prototype.showText = function(message, index, interval, sound) {
         }, interval);
     } else {
       $('.textbox').append('<img class="pointer" src="../assets/interfaceimages/pointer.gif" />');
-        currScene.lineIndex++;
+      if(currScene.defaultText == 'testimony' && currScene.lineIndex >= 1){
+        $('.textbox').append('<img class="pointer-prev" src="../assets/interfaceimages/pointer.gif" />');
+      }
         displaySprite(this.emotions[this.emotion].finished);
         isTalking = false;
     }
 };
-Scene.prototype.advanceText = function() {
-  if (currScene.lines.length <= currScene.lineIndex) {
+
+//This function goes backwards in the current text. Only used for testimony.
+Scene.prototype.prevText = function() {
+currScene.lineIndex--;
+var line = currScene.lines[currScene.lineIndex];
+var emotion = line.emotion;
+var texttype = line.text || currScene.defaultText;
+currChar = (characterList[line.character]) || currChar;
+currChar.speak(line.line || currScene.lines[currScene.lineIndex], emotion, texttype);
+currScene.changeBG(line.background || currScene.background);
+currScene.changeMusic(line.music || currScene.defaultMusic);
+};
+
+Scene.prototype.advanceText = function(event) {
+console.log(event.data.loc);
+  lineIndex++;
+  console.log(event.data.loc);
+
+  if (currScene.lines.length <= lineIndex) {
       currScene.nextScene();
+      event.data.loc = currScene.lines;
+      lineIndex = 0;
   }
-  console.log(currScene.character);
-    var line = currScene.lines[currScene.lineIndex];
+    var line = event.data.loc[lineIndex];
+    console.log(line);
     var emotion = line.emotion;
-    var texttype = line.text;
+    var texttype = line.text || currScene.defaultText;
     currChar = (characterList[line.character]) || currChar;
-    currChar.speak(line.line || currScene.lines[currScene.lineIndex], emotion, texttype);
+    currChar.speak(line.line || event.data.loc[lineIndex], emotion, texttype);
     currScene.changeBG(line.background || currScene.background);
+    currScene.changeMusic(line.music);
+  };
+Scene.prototype.changeMusic = function (music) {
+  if(music){
+  $("#gamemusic").attr('src', '../assets/audio/bgm/' + music + '.mp3').trigger('play');
+
+}
 };
 Scene.prototype.changeBG = function(bg) {
+  if(bg) {
     $('.gamecontainer').css({
         'backgroundImage': 'url(../assets/backgrounds/' + bg + '.png'
     });
-if(bg == "defenseempty"){
-$('.defensebench').removeClass('hidden');
-} else {
-$('.defensebench').addClass('hidden');
-}
-if(bg == "prosecutorempty"){
-  $('.prosecutionbench').removeClass('hidden');
-} else {
-  $('.prosecutionbench').addClass('hidden');
-}
-if(bg == "witnessempty"){
-$('.witness_stand').removeClass('hidden');
-} else {
-  $('.witness_stand').addClass('hidden');
-}
+    if(bg == "defenseempty"){
+    $('.defensebench').removeClass('hidden');
+    } else {
+    $('.defensebench').addClass('hidden');
+    }
+    if(bg == "prosecutorempty"){
+      $('.prosecutionbench').removeClass('hidden');
+    } else {
+      $('.prosecutionbench').addClass('hidden');
+    }
+    if(bg == "witnessempty"){
+    $('.witness_stand').removeClass('hidden');
+    } else {
+      $('.witness_stand').addClass('hidden');
+    }
+  }
 };
 
+//Displays the press text when using 'press' in testimony.
+Scene.prototype.pressText = function(){
+  console.log(lineIndex);
+  var pressIndex = 0;
+  var pressLoc = currScene.lines[lineIndex].presstext.lines[pressIndex];
+
+console.log(pressLoc.line);
+console.log(pressLoc.emotion);
+
+$('.textbox').off('click', '.pointer', { loc: currScene.lines }, currScene.advanceText);
+$('.textbox').on('click', '.pointer', { loc: currScene.lines[lineIndex].presstext.lines }, currScene.advanceText);
+  lineIndex = 0;
+currChar.speak(pressLoc.line, pressLoc.emotion, pressLoc.texttype);
+
+};
 Scene.prototype.nextScene = function(){
   sceneIndex++;
 currScene = sceneList[sceneIndex];
-console.log(currScene);
 };
 
 $(document).ready(function() {
@@ -119,11 +169,9 @@ $(document).ready(function() {
     fetchChar();
     fetchScene();
     fetchEvidence();
+var gamemusic = document.getElementById("gamemusic");
+gamemusic.play();
 
-    //The starting music is initialized. It is set to loop, and then it plays.
-    var music = new Audio('../assets/audio/bgm/courtroomlobby.mp3');
-    music.loop = true;
-    music.play();
 
 });
 
@@ -136,9 +184,9 @@ function fetchChar() {
             characterList = character;
 
             //New characters are made for each character in the json file. They are then put into a container object.
-            ruby = new Character(characterList.ruby);
-            isaac = new Character(characterList.isaac);
-            dawn = new Character(characterList.dawn);
+            ruby = new Character(characterList.witnessOne);
+            isaac = new Character(characterList.detective);
+            dawn = new Character(characterList.defense);
             characterList = {
                 ruby: ruby,
                 isaac: isaac,
@@ -155,13 +203,15 @@ function fetchScene() {
         sceneList = linedata;
         opening = new Scene(sceneList.opening);
         courtroom = new Scene(sceneList.courtroom);
+        testimonyOne = new Scene(sceneList.testimonyone);
         sceneList = [
-             opening, courtroom
+             opening, courtroom, testimonyOne
         ];
         checkLoad();
     });
 }
 
+//This function populates our evidence from the json file.
 function fetchEvidence() {
     $.get('/jsonserver/evidence/', function(evidence) {
         badge = new Evidence(evidence.badge);
@@ -180,8 +230,17 @@ function displaySprite(path) {
 }
 
 function displayEvidence() {
+  if(currScene.defaultText == 'testimony'){
+    $('#press').removeClass('hidden');
+    $('#present').removeClass('hidden');
+  } else {
+    $('#present').addClass('hidden');
+    $('#press').addClass('hidden');
+  }
     $('.evidencebox').removeClass('hidden');
     $('.portrait').addClass('hidden');
+    $('.witness_stand').addClass('hidden');
+
 }
 
 function hideEvidence() {
@@ -193,7 +252,6 @@ function setActiveEvidence() {
   $('.evidence').removeClass('active');
     $(this).addClass('active');
     active = $(this).attr('id');
-    console.log(active);
     $('.textbox').text(evidenceList[active].description);
 }
 
@@ -202,6 +260,17 @@ function showInfo() {
         $('.textbox').text(evidenceList[active].info);
     }
 }
+function objection() {
+  hideEvidence();
+  $('.overlay').removeClass('hidden');
+  $('.overlay').attr('src', '../assets/interfaceimages/objection.gif');
+  var overlayHide = setTimeout(hideOverlay, 1500);
+}
+
+
+function hideOverlay(){
+  $('.overlay').addClass('hidden');
+}
 
 //This function ensures all our JSON files are ready before the game begins.
 function checkLoad() {
@@ -209,11 +278,14 @@ function checkLoad() {
 
         currScene = (sceneList[0]);
         currChar = (characterList[currScene.character]);
-
-        $('.textbox').on('click', currScene.advanceText);
-        $('.evidencebtn').on('click', displayEvidence);
+console.log("Click handlers setting up!");
+        $('.textbox').on('click', '.pointer', { loc: currScene.lines }, currScene.advanceText);
+        $('.textbox').on('click', '.pointer-prev', currScene.prevText);
+        $('#openev').on('click', displayEvidence);
         $('.close').on('click', hideEvidence);
         $('.evidence').on('click', setActiveEvidence);
-        $('.check').on('click', showInfo);
+        $('#check').on('click', showInfo);
+        $('#present').on('click', objection);
+        $('#press').on('click', currScene.pressText);
     }
 }
