@@ -3,25 +3,31 @@
         "background": "courtroomHall",
         "character": "ruby",
         "defaultText": "speech",
-        "lines": [{
-                "line": "This is the first line. It doesn't have anything special.",
-                "music": "courtroomlobby"
-            },
-            "This is the second line. It also doesn't have anything special.", {
-                "line": "This is the third line. Ruby is nervous and grabbing her hat!",
-                "emotion": "sweating",
-                "character": "ruby",
-                "background": "prosecutorempty"
-            }, {
-                "line": "This is the fourth line. Isaac is thinking.",
-                "text": "thought",
-                "character": "isaac",
-                "background": "witnessempty"
-            },
-            "This is the fifth line. There is nothing special."
-        ]
+        "type":"testimony",
+          "lines": [{
+              "line": "This is the first line of my testimony.",
+              "background": "witnessempty",
+              "character": "isaac",
+              "music": "xmoderate",
+              "presstext": {
+                  "lines": [{
 
-    },
+                      "line": "You've done it now pal!",
+                      "emotion": "mad"
+                  }, {
+                      "line": "Now we're in some good old presstext!",
+                      "character": "dawn",
+                      "emotion": "confident",
+                      "background": "defenseempty"
+
+                  }]
+              }
+          }, {
+              "line": "This is the second line. I am angry!",
+              "emotion": "mad"
+          }]
+
+  },
     "courtroom": {
         "lines": [{
                 "line": "This is the first line. We are in a new scene.",

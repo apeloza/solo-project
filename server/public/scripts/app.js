@@ -14,6 +14,7 @@ var court;
 var sceneIndex = 0;
 var testimonyone;
 var lineIndex = -1;
+var textLocation;
 
 
 //This is the character prototype.
@@ -96,21 +97,20 @@ currScene.changeMusic(line.music || currScene.defaultMusic);
 };
 
 Scene.prototype.advanceText = function(event) {
-console.log(event.data.loc);
   lineIndex++;
-  console.log(event.data.loc);
-
+console.log(textLocation);
   if (currScene.lines.length <= lineIndex) {
+    console.log("Change scene!");
       currScene.nextScene();
-      event.data.loc = currScene.lines;
+      textLocation = currScene.lines;
       lineIndex = 0;
   }
-    var line = event.data.loc[lineIndex];
+    var line = textLocation[lineIndex];
     console.log(line);
     var emotion = line.emotion;
     var texttype = line.text || currScene.defaultText;
     currChar = (characterList[line.character]) || currChar;
-    currChar.speak(line.line || event.data.loc[lineIndex], emotion, texttype);
+    currChar.speak(line.line || textLocation[lineIndex], emotion, texttype);
     currScene.changeBG(line.background || currScene.background);
     currScene.changeMusic(line.music);
   };
@@ -147,15 +147,12 @@ Scene.prototype.changeBG = function(bg) {
 Scene.prototype.pressText = function(){
   console.log(lineIndex);
   var pressIndex = 0;
-  var pressLoc = currScene.lines[lineIndex].presstext.lines[pressIndex];
+  textLocation = currScene.lines[lineIndex].presstext.lines;
 
-console.log(pressLoc.line);
-console.log(pressLoc.emotion);
+console.log(textLocation);
 
-$('.textbox').off('click', '.pointer', { loc: currScene.lines }, currScene.advanceText);
-$('.textbox').on('click', '.pointer', { loc: currScene.lines[lineIndex].presstext.lines }, currScene.advanceText);
   lineIndex = 0;
-currChar.speak(pressLoc.line, pressLoc.emotion, pressLoc.texttype);
+currChar.speak(textLocation[0].line, textLocation[0].emotion, textLocation[0].texttype);
 
 };
 Scene.prototype.nextScene = function(){
@@ -278,8 +275,9 @@ function checkLoad() {
 
         currScene = (sceneList[0]);
         currChar = (characterList[currScene.character]);
+        textLocation = currScene.lines;
 console.log("Click handlers setting up!");
-        $('.textbox').on('click', '.pointer', { loc: currScene.lines }, currScene.advanceText);
+        $('.textbox').on('click', '.pointer', currScene.advanceText);
         $('.textbox').on('click', '.pointer-prev', currScene.prevText);
         $('#openev').on('click', displayEvidence);
         $('.close').on('click', hideEvidence);
